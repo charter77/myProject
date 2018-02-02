@@ -100,7 +100,7 @@ public class Main {
 				if (listeFourmiliere.size() > 0) {
 					Fourmiliere f1 = null;
 					Fourmiliere f2 = null;
-					System.out.println("Choisir la 1ère fourmilère qui va entrer en guerre: ");
+					System.out.println("Choisir la 1 ère fourmilère qui va entrer en guerre: ");
 					int choixF1 = 0;
 					for (Fourmiliere f : listeFourmiliere) {
 						System.out.println(choixF1 +1 + ". " + f.getEspeceFourmis().toString());
