@@ -11,79 +11,190 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  */
 public class Fourmiliere {
+	/**
+	 * Valide que le vol nuptial est complété
+	 */
 	private boolean m_VolNuptial = false;
+	/**
+	 * Permet de setter la fourmilière en guerre
+	 */
 	private Fourmiliere m_estEnGuerreAvec = null;
+	/**
+	 * Nombre de reines dans la fourmilière
+	 */
 	private int m_NbReines;
+	/**
+	 * Nombre d'ouvrières dans la fourmilière
+	 */
 	private int m_NbOuvrieres;
+	/**
+	 * Nombre de soldates dans la fourmilière
+	 */
 	private int m_NbSoldates;
+	/**
+	 * Nombre de nourritures dans la fourmilière
+	 */
 	private int m_NbNourriture;
+	/**
+	 * Espèce de la fourmis fourmis d'un ENUM
+	 */
 	private Especes m_EspeceFourmis;
-	private int m_JourDeAnnee = 1;
+	/**
+	 * Jour de l'année
+	 */
+	private int m_JourDeAnnee = 0;
+	/**
+	 * Jour du vol nuptial
+	 */
 	private int m_JourDuVolNuptial;
-
-	public static int NB_JOUR_ANNEE = 365;
 	
+	/**
+	 * Liste de toutes les fourmis
+	 */
 	ArrayList<Fourmis> listeFourmis = new ArrayList<Fourmis>();
 	
+	/**
+	 * Construit la liste des fourmis par âge de vie
+	 * @param p_listToSort
+	 * @return p_listToSort
+	 */
 	private ArrayList<Fourmis> listeFourmisParAge(ArrayList<Fourmis> p_listToSort){
 		p_listToSort.sort(Comparator.comparingInt(Fourmis::getDureeVie).reversed());
 		return p_listToSort;
 	}
+	/**
+	 * Méthode pour avoir la liste des fourmis
+	 * @return listeFourmis
+	 */
 	public ArrayList<Fourmis> getListeFourmis() {
-		return listeFourmis;
+		return this.listeFourmis;
 	}
+	/**
+	 * Méthode pour avoir le jour du vol nuptial
+	 * @return m_JourDuVolNuptial
+	 */
 	public int getJourDuVolNuptial() {
-		return m_JourDuVolNuptial;
+		return this.m_JourDuVolNuptial;
 	}
+	/**
+	 * Méthode pour setter le jour du vol nuptial
+	 * @param p_jourDuVolNuptial
+	 */
 	public void setJourDuVolNuptial(int p_jourDuVolNuptial) {
-		m_JourDuVolNuptial = p_jourDuVolNuptial;
+		this.m_JourDuVolNuptial = p_jourDuVolNuptial;
 	}
+	/**
+	 * Méthode pour avoir le nombre de reines
+	 * @return m_NbReines
+	 */
 	public int getNbReine() {
-		return m_NbReines;
+		return this.m_NbReines;
 	}
+	/**
+	 * Méthode pour setter le nombre de reine
+	 * @param p_nbReine
+	 */
 	public void setNbReine(int p_nbReine) {
 		this.m_NbReines = p_nbReine;
 	}
+	/**
+	 * Méthode pour avoir le nombre d'ouvrière
+	 * @return m_NbOuvrieres
+	 */
 	public int getNbOuvrieres() {
-		return m_NbOuvrieres;
+		return this.m_NbOuvrieres;
 	}
+	/**
+	 * Méthode pour setter le nombre d'ouvrière
+	 * @param p_nbOuvrieres
+	 */
 	public void setNbOuvrieres(int p_nbOuvrieres) {
-		m_NbOuvrieres = p_nbOuvrieres;
+		this.m_NbOuvrieres = p_nbOuvrieres;
 	}
+	/**
+	 * Méthode pour avoir le nombre de soldate
+	 * @return m_NbSoldates
+	 */
 	public int getNbSoldates() {
-		return m_NbSoldates;
+		return this.m_NbSoldates;
 	}
+	/**
+	 * Méthode pour setter le nombre de soldate
+	 * @param p_nbSoldates
+	 */
 	public void setNbSoldates(int p_nbSoldates) {
-		m_NbSoldates = p_nbSoldates;
+		this.m_NbSoldates = p_nbSoldates;
 	}
+	/**
+	 * Méthode pour avoir le nombre de nourriture
+	 * @return m_NbNourriture
+	 */
 	public int getNbNourriture() {
-		return m_NbNourriture;
+		return this.m_NbNourriture;
 	}
+	/**
+	 * Méthode pour setter le nombre de nourriture
+	 * @param p_nbNourriture
+	 */
 	public void setNbNourriture(int p_nbNourriture) {
 		this.m_NbNourriture = p_nbNourriture;
 	}
+	/**
+	 * Méthode pour avoir l'espèce des fourmis
+	 * @return m_EspeceFourmis
+	 */
 	public Especes getEspeceFourmis() {
-		return m_EspeceFourmis;
+		return this.m_EspeceFourmis;
 	}
-	public int getNbJourAvantVol() {
-		return m_JourDeAnnee;
+	/**
+	 * Méthode pour avoir le jour de l'année
+	 * @return m_JourAnnee
+	 */
+	public int getJourDeAnnee() {
+		return this.m_JourDeAnnee;
 	}
-	public void setNbJourAvantVol(int p_nbJourAvantVol) {
+	/**
+	 * Méthodde pour setter le jour de l'année
+	 * @param p_nbJourAvantVol
+	 */
+	public void setJourDeAnnee(int p_nbJourAvantVol) {
 		this.m_JourDeAnnee = p_nbJourAvantVol;
 	}
+	/**
+	 * Méthode pour indiquer que le vol nuptial a eu lieu
+	 * @return m_VolNuptial
+	 */
 	public boolean isVolNuptial() {
-		return m_VolNuptial;
+		return this.m_VolNuptial;
 	}
+	/**
+	 * Méthode pour setter le vol nuptial
+	 * @param p_volNuptial
+	 */
 	public void setVolNuptial(boolean p_volNuptial) {
-		m_VolNuptial = p_volNuptial;
+		this.m_VolNuptial = p_volNuptial;
 	}
+	/**
+	 * Méthode pour connaître la fourmiliere en guerre avec
+	 * @return m_estEnGuerreAvec
+	 */
 	public Fourmiliere getEstEnGuerreAvec() {
-		return m_estEnGuerreAvec;
+		return this.m_estEnGuerreAvec;
 	}
+	/**
+	 * Méthode pour setter en guerre avec quel fourmilière
+	 * @param p_estEnGuerreAvec
+	 */
 	public void setEstEnGuerreAvec(Fourmiliere p_estEnGuerreAvec) {
-		m_estEnGuerreAvec = p_estEnGuerreAvec;
+		this.m_estEnGuerreAvec = p_estEnGuerreAvec;
 	}
 	
+	/**
+	 * Constructeur par initialisation
+	 * @param p_NbReine
+	 * @param p_NbNourriture
+	 * @param p_EspeceFourmis
+	 */
 	public Fourmiliere(int p_NbReine, int p_NbNourriture, Especes p_EspeceFourmis) {
 		this.m_NbReines = p_NbReine; 
 		this.m_NbNourriture = p_NbNourriture;
@@ -91,42 +202,29 @@ public class Fourmiliere {
 		for (int i = 0; i < p_NbReine; i++) {
 			Reines r = new Reines(this);
 			r.setEstFeconde(true);
-			//r.setMaFourmiliere(this);
 			this.listeFourmis.add(r);
 			this.m_NbReines++;
 		}
-		for (int j = 0; j < p_NbReine * 1; j++) {
-			Ouvrieres o = new Ouvrieres(this);
-			//o.setMaFourmiliere(this);
-			this.listeFourmis.add(o);
-			this.m_NbOuvrieres++;
-		}
-		for (int k = 0; k < p_NbReine * 1; k++) {
+		for (int k = 0; k < p_NbReine * 3; k++) {
 			Soldates s = new Soldates(this);
-			//s.setMaFourmiliere(this);
 			this.listeFourmis.add(s);
 			this.m_NbSoldates++;
 		}
-		//Collections.shuffle(this.listeFourmis);
-	}
-	
-	public void AjouterUneFourmi(Fourmis p_Fourmis) {
-		for (Fourmis fourmis : listeFourmis) {
-			if (fourmis instanceof Reines) {
-				listeFourmis.add(p_Fourmis);
-			}
-			if (fourmis instanceof Ouvrieres) {
-				listeFourmis.add(p_Fourmis);
-			}
-			if (fourmis instanceof Soldates) {
-				listeFourmis.add(p_Fourmis);
-			}
+		for (int j = 0; j < p_NbReine * 10; j++) {
+			Ouvrieres o = new Ouvrieres(this);
+			this.listeFourmis.add(o);
+			this.m_NbOuvrieres++;
 		}
+		Collections.shuffle(this.listeFourmis);
 	}
 	
+	/**
+	 * Méthode pour tuer  une fourmis selon l'espèce
+	 * @param p_Fourmis
+	 */
 	public void TuerUneFourmis(Fourmis p_Fourmis) {
 		if (this.listeFourmis.size() > 0) {
-			listeFourmis.remove(p_Fourmis);
+			this.listeFourmis.remove(p_Fourmis);
 			if (p_Fourmis instanceof Reines) {
 				this.m_NbReines--;
 			}
@@ -139,14 +237,22 @@ public class Fourmiliere {
 		}
 	}
 	
+	/**
+	 * Méthode pour avoir le nombre total de fourmis
+	 * @return result
+	 */
 	public int getNombreDefourmisTotale (){
 	  int result = this.NbReines() + this.NbOuvrieres() + this.NbSoldates();
 	  return result;
 	}
 	
+	/**
+	 * Méthode pour avoir le total de reine
+	 * @return r
+	 */
 	public int NbReines() {
 		int r = 0;
-		for(Fourmis f:listeFourmis) {
+		for(Fourmis f: this.listeFourmis) {
 			if (f instanceof Reines) {
 				r++;
 			}
@@ -154,9 +260,13 @@ public class Fourmiliere {
 		return r;
 	}
 	
+	/**
+	 * Méthode pour avoir le total d'ouvrière
+	 * @return o
+	 */
 	public int NbOuvrieres() {
 		int o = 0;
-		for(Fourmis f:listeFourmis) {
+		for(Fourmis f: this.listeFourmis) {
 			if (f instanceof Ouvrieres) {
 				o++;
 			}
@@ -164,9 +274,13 @@ public class Fourmiliere {
 		return o;
 	}
 	
+	/**
+	 * Méthode pour avoir le total de soldate
+	 * @return s
+	 */
 	public int NbSoldates() {
 		int s = 0;
-		for(Fourmis f:listeFourmis) {
+		for(Fourmis f: this.listeFourmis) {
 			if (f instanceof Soldates) {
 				s++;
 			}
@@ -174,88 +288,87 @@ public class Fourmiliere {
 		return s;
 	}
 	
-	public void ValiderMomentVolNuptial() {
-		if (this.m_JourDeAnnee == this.NB_JOUR_ANNEE) {
-			this.m_VolNuptial = true;
+	/**
+	 * Méthode pour setter le vol nuptial des reines de la fourmilière0
+	 */
+	public void VolNuptialFourmiliere() {
+		this.m_VolNuptial = true;
+		for (Fourmis f : this.listeFourmis) {
+			if (f instanceof Reines) {
+				if (!((Reines) f).isEstFeconde()) {
+					((Reines) f).setEstFeconde(true);
+				}
+			}
 		}
 	}
 	
-	public void VolNuptial() {
-		for (Fourmis f : listeFourmis) {
-			if (f instanceof Reines) {
-				if (!f.getMaFourmiliere().m_VolNuptial) {
-					f.getMaFourmiliere().m_VolNuptial = true;
-				}
-			}
-		}this.m_VolNuptial = true;
-	}
-	
+	/**
+	 * Méthode pour rentrer en guerre avec un autre fourmilière
+	 * @param p_fourmiliere
+	 */
 	public void Guerre(Fourmiliere p_fourmiliere) {
 		this.setEstEnGuerreAvec(p_fourmiliere);
 	}
 	
+	/**
+	 * Méthod pour exécuter les opérationsJournalière de chaque fourmi de la fourmilière
+	 */
 	public void OperationJournaliere() {
 		this.definirJourNuptial();
 		for (int i = this.listeFourmis.size()-1; i >=0; i--) {
-			Fourmis f = listeFourmis.get(i);
-			
-			f.OperationJournaliere(this);
-			f.setDureeVie(f.getDureeVie() - 1);
-			if (f.getDureeVie() <= 0) {
+			Fourmis f = this.listeFourmis.get(i);
+			if (f.getDureeVie() > 1) {
+				f.OperationJournaliere(this);				
+				f.setDureeVie(f.getDureeVie() - 1);				
+			}
+			else {
 				this.TuerUneFourmis(f);
 			}
 		}
 	}
 	
+	/**
+	 * Méthode pour faire avancer l'année et valider le jour nuptial
+	 */
 	public void definirJourNuptial() {
-		this.m_VolNuptial = false;
 		this.m_JourDeAnnee++;
 		if (this.m_JourDeAnnee == 1) {
-			this.m_JourDuVolNuptial = ThreadLocalRandom.current().nextInt(364)+1;
+			this.m_JourDuVolNuptial = ThreadLocalRandom.current().nextInt(1, 365);
 		}
 		if (this.m_JourDeAnnee == this.m_JourDuVolNuptial) {
-			this.m_VolNuptial = true;
+			VolNuptialFourmiliere();
 		}
 		if (this.m_JourDeAnnee == 365) {
 			this.m_JourDeAnnee = 0;
+			this.m_VolNuptial = false;
 		}
 	}
 	
+	/**
+	 * Méthode pour afficher les informations relative à la fourmilière
+	 */
 	@Override
 	public String toString() {
 		listeFourmisParAge(this.listeFourmis);
 		System.out.println("Informations pour la fourmilière " + this.getEspeceFourmis().toString());
-		ArrayList<Fourmis> listeReines = new ArrayList<Fourmis>();
-		ArrayList<Fourmis> listeOuvrieres = new ArrayList<Fourmis>();
-		ArrayList<Fourmis> listeSoldates = new ArrayList<Fourmis>();
-		for (Fourmis fourmi : listeFourmis) {
-			if (fourmi instanceof Reines) {
-				listeReines.add(fourmi);
-			}
-			if (fourmi instanceof Ouvrieres) {
-				listeOuvrieres.add(fourmi);
-			}
-			if (fourmi instanceof Soldates) {
-				listeSoldates.add(fourmi);
-			}
+		int num = 1;
+		for (Fourmis fourmi : this.listeFourmis) {
+			System.out.println("Foumis " + num + ": " + fourmi);
+			num++;
 		}
-		System.out.println("Nombre de reines: " + listeReines.size());
-		for (Fourmis fourmis : listeReines) {
-			System.out.println(fourmis);
-		}
-		System.out.println("Nombre d'ouvrières: " + listeOuvrieres.size());
-		for (Fourmis fourmis : listeOuvrieres) {
-			System.out.println(fourmis);
-		}
-		System.out.println("Nombre de soldates: " + listeSoldates.size());
-		for (Fourmis fourmis : listeSoldates) {
-			System.out.println(fourmis);
-		}
+		System.out.println("Nombre de reines: " + this.NbReines());
+		System.out.println("Nombre d'ouvrières: " + this.NbOuvrieres());
+		System.out.println("Nombre de soldates: " + this.NbSoldates());
 		String enGuerre = "NON";
 		if (this.m_estEnGuerreAvec != null) {
-			enGuerre = this.m_estEnGuerreAvec.toString();
+			enGuerre = "OUI";
 		}
-		return "Fourmiliere en guerre: " + enGuerre + "\nQuantité de nourriture: "
-		+ this.m_NbNourriture + "\n";	
+		String volNuptialFait = "NON";
+		if (this.isVolNuptial() == true) {
+			volNuptialFait = "OUI";
+		}
+		return "Quantité de nourriture: " + this.m_NbNourriture + "\nFourmiliere en guerre: " + enGuerre + "\n" 
+		+ "Jour de l'année: " + this.m_JourDeAnnee + "\n" + "Jour du vol nuptial: " 
+		+ this.m_JourDuVolNuptial + "\n" + "Vol nuptial effectué? " + volNuptialFait;	
 	}
 }

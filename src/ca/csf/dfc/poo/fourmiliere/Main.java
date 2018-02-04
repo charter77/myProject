@@ -1,6 +1,6 @@
 package ca.csf.dfc.poo.fourmiliere;
 
-import java.util.Iterator;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -11,9 +11,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//listeFourmiliere.add(new Fourmiliere(1,35,"r"));
 		afficherMenu();
-		//listeFourmiliere.add(new Fourmiliere(2, 35, "Noir"));
 	}
 
 	public static void afficherMenu() {
@@ -44,8 +42,11 @@ public class Main {
 					Fourmiliere temp = null;
 					int choixFourmiliere = validerInt(1, choixF);
 					for (Fourmiliere f: listeFourmiliere) {
+						System.out.println("entre la loop de selection");
+						System.out.println(Especes.values()[choixFourmiliere-1]);
 						if (f.getEspeceFourmis().equals(Especes.values()[choixFourmiliere-1])) {
 							temp = f;
+							System.out.println(temp);
 						}
 					}
 					if (temp != null) {
@@ -78,11 +79,11 @@ public class Main {
 						System.out.println(choixF +1 + ". " + f.getEspeceFourmis().toString());
 						choixF++;
 					}
-					int choixFourmiliere = validerInt(1, choixF-1);
+					int choixFourmiliere = validerInt(1, choixF);
 					System.out.print("La quantité de reines à ajouter: \n");
-					int nbReines = validerInt(1, 25);
+					int nbReines = validerInt(0, 25);
 					System.out.print("La quantité de nourriture à ajouter: \n");
-					int nbNourriture = validerInt(1, 100);
+					int nbNourriture = validerInt(0, 100);
 					Fourmiliere temp = null;
 					for (Fourmiliere f: listeFourmiliere) {
 						if (f.getEspeceFourmis().equals(Especes.values()[choixFourmiliere-1])) {
@@ -98,30 +99,45 @@ public class Main {
 			case 5:
 				// Faire la guerre entre fourmilière
 				if (listeFourmiliere.size() > 0) {
+					ArrayList<Fourmiliere> listeOfferte = new ArrayList<Fourmiliere>();
+					for (Fourmiliere fourmiliere : listeFourmiliere) {
+						if (fourmiliere.getEstEnGuerreAvec() == null) {
+							listeOfferte.add(fourmiliere);
+						}
+					}
 					Fourmiliere f1 = null;
 					Fourmiliere f2 = null;
-					System.out.println("Choisir la 1 ère fourmilère qui va entrer en guerre: ");
-					int choixF1 = 0;
-					for (Fourmiliere f : listeFourmiliere) {
-						System.out.println(choixF1 +1 + ". " + f.getEspeceFourmis().toString());
-						choixF1++;
-					}
-					choixF1 = validerInt(1, choixF1 +1);
-					for (Fourmiliere f: listeFourmiliere)
-						if (f.getEspeceFourmis().equals(Especes.values()[choixF1-1])) {
-							f1 = f;
-					}
-					System.out.println("Choisir la 2e fourmilère: ");
-					int choixF2 = 0;
-					for (Fourmiliere f : listeFourmiliere) {
-						System.out.println(choixF2 +1 + ". " + f.getEspeceFourmis().toString());
-						choixF2++;
-					}
-					choixF2 = validerInt(1, choixF2 +1);
-					for (Fourmiliere f: listeFourmiliere)
-						if (f.getEspeceFourmis().equals(Especes.values()[choixF2-1])) {
-							f2 = f;
+					boolean choixCorrect = false;
+					do {
+						System.out.println("Choisir la 1 ère fourmilère qui va entrer en guerre: ");
+						int choixF1 = 0;
+						for (Fourmiliere f : listeOfferte) {
+							System.out.println(choixF1 +1 + ". " + f.getEspeceFourmis().toString());
+							choixF1++;
 						}
+						choixF1 = validerInt(1, choixF1 +1);
+						for (Fourmiliere f: listeFourmiliere)
+							if (f.getEspeceFourmis().equals(Especes.values()[choixF1-1])) {
+								f1 = f;
+							}
+						System.out.println("Choisir la 2e fourmilère: ");
+						int choixF2 = 0;
+						for (Fourmiliere f : listeFourmiliere) {
+							System.out.println(choixF2 +1 + ". " + f.getEspeceFourmis().toString());
+							choixF2++;
+						}
+						choixF2 = validerInt(1, choixF2 +1);
+						for (Fourmiliere f: listeFourmiliere)
+							if (f.getEspeceFourmis().equals(Especes.values()[choixF2-1])) {
+								f2 = f;
+							}
+						if (f1 != f2) {
+							choixCorrect = true;
+						}
+						else {
+							System.out.println("La fourmilière a été choisit 2 fois!");
+						}
+					} while (!choixCorrect);
 					guerre(f1, f2);
 				}
 				else {
@@ -138,6 +154,10 @@ public class Main {
 		}
 		//inputScanner.close();
 	}
+	
+	/**
+	 * Méthode pour construire une fourmilière
+	 */
 	public static void creationFourmiliere() {
 		boolean especeOK = false;
 		int choixEspece = 0;
@@ -155,7 +175,7 @@ public class Main {
 			}
 			boolean valide = false;
 			do {
-				System.out.print("Choisissez l'espèce de votre fourmillière: ");
+				System.out.print("Choisissez l'espèce de votre fourmillière: \n");
 				choixEspece = validerInt(1, nbEspece + 1);
 				valide = choixEspece >= 1 && choixEspece <= nbEspece;
 				if (!valide) {
@@ -175,6 +195,12 @@ public class Main {
 		System.out.println("La fourmilière a été ajoutée!");
 	}
 		
+	/**
+	 * Méthode pour modifier une foumilière
+	 * @param f (foumilière à modifier)
+	 * @param p_nbReines (nombre de reine à ajouter)
+	 * @param p_nbNourriture (nombre de nourriture à ajouter)
+	 */
 	public static void modifier(Fourmiliere f, int p_nbReines, int p_nbNourriture) {
 		Fourmiliere maFourmilieretemp = null;
 		for (Fourmiliere liste: listeFourmiliere) {
@@ -187,19 +213,30 @@ public class Main {
 			maFourmilieretemp.listeFourmis.add(new Reines(maFourmilieretemp));
 			maFourmilieretemp.setNbReine(maFourmilieretemp.getNbReine() + 1);
 		}
-		//System.out.println(maFourmilieretemp.getNbReine());
 	}
 	
+	/**
+	 * Méthode pour afficher une fourmilière
+	 * @param p_fourmiliere
+	 */
 	public static void afficherFourmiliere(Fourmiliere p_fourmiliere) {		
 		System.out.println(p_fourmiliere);
 	}
 	
+	/**
+	 * Méthode pour simuler les fourmilières
+	 */
 	public static void simuler() {
 		for (Fourmiliere fourmiliere : listeFourmiliere) {
 			fourmiliere.OperationJournaliere();
 		}
 	}
 	
+	/**
+	 * Méthode pour mettre en guerre 2 fourmilières
+	 * @param p_fourmiliere1
+	 * @param p_fourmiliere2
+	 */
 	public static void guerre(Fourmiliere p_fourmiliere1, Fourmiliere p_fourmiliere2) {
 		if (listeFourmiliere.size() > 1) {
 			p_fourmiliere1.setEstEnGuerreAvec(p_fourmiliere2);
@@ -212,6 +249,12 @@ public class Main {
 		}
 	}
 	
+	/**
+	 * Méthode pour faire la validation de la saisit d'entier seulement
+	 * @param p_Min
+	 * @param p_Max
+	 * @return
+	 */
 	public static int validerInt(int p_Min, int p_Max){
 		int result = -1;
 		do {
@@ -226,7 +269,6 @@ public class Main {
 				System.out.println("Type erroné: saisir un nombre");
 				result = -1;
 			}
-			//inputScanner.close();
 		} while (result < p_Min || result > p_Max);
 		return result;
 	}
